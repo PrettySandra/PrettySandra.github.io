@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BMI 計算器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        label {
+            display: inline-block;
+            width: 120px;
+            text-align: right;
+            margin-right: 10px;
+        }
+        input[type="text"] {
+            width: 200px;
+        }
+        input[type="submit"] {
+            margin-left: 130px;
+        }
+    </style>
+</head>
+<body>
+    <h2>BMI 計算器</h2>
+    <form method="post" action="">
+        <div>
+            <label for="gender">性別：</label>
+            <select name="gender" id="gender" required>
+                <option value="male">男性</option>
+                <option value="female">女性</option>
+            </select>
+        </div>
+        <div>
+            <label for="age">年齡：</label>
+            <input type="text" name="age" id="age" required>
+        </div>
+        <div>
+            <label for="weight">體重（公斤）：</label>
+            <input type="text" name="weight" id="weight" required>
+        </div>
+        <div>
+            <label for="height">身高（公分）：</label>
+            <input type="text" name="height" id="height" required>
+        </div>
+        <div>
+            <input type="submit" value="計算BMI">
+        </div>
+    </form>
+
+    <script>
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var gender = document.getElementById('gender').value;
+            var age = parseInt(document.getElementById('age').value);
+            var weight = parseFloat(document.getElementById('weight').value);
+            var height = parseFloat(document.getElementById('height').value);
+
+            var bmi = calculateBMI(weight, height);
+            displayResult(bmi, gender, age);
+        });
+
+        function calculateBMI(weight, height) {
+            var heightInMeters = height / 100;
+            return weight / (heightInMeters * heightInMeters);
+        }
+
+        function displayResult(bmi, gender, age) {
+            var result = 'BMI: ' + bmi.toFixed(2) + '\n';
+
+            if (gender === 'male') {
+                result += '性別: 男性\n';
+            } else if (gender === 'female') {
+                result += '性別: 女性\n';
+            }
+
+            result += '年齡: ' + age + ' 歲';
+
+            alert(result);
+        }
+    </script>
+</body>
+</html>
+
+
